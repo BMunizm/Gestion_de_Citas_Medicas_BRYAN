@@ -1,0 +1,90 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API Gestión de Citas Médicas",
+    "version": "1.0.0",
+    "description": "Una API para gestionar reservas de citas médicas"
+  },
+  "host": "localhost:3000",
+  "basePath": "/api",
+  "schemes": ["http"],
+  "paths": {
+    "/citas": {
+      "get": {
+        "summary": "Obtener todas las citas",
+        "responses": {
+          "200": {
+            "description": "Lista de citas"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear una cita nueva",
+        "parameters": [
+          {
+            "name": "cita",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Cita"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Cita creada"
+          }
+        }
+      }
+    },
+    "/citas/{id}": {
+      "get": {
+        "summary": "Obtener una cita por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cita encontrada"
+          },
+          "404": {
+            "description": "Cita no encontrada"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar una cita por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cita eliminada"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Cita": {
+      "type": "object",
+      "properties": {
+        "paciente": { "type": "string" },
+        "doctor": { "type": "string" },
+        "fecha": { "type": "string", "format": "date" },
+        "hora": { "type": "string" }
+      },
+      "required": ["paciente", "doctor", "fecha", "hora"]
+    }
+  }
+}
